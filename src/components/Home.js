@@ -89,7 +89,7 @@ export default function Home() {
     const handleFlip = (element, src) => {
         setStepCount(prev => prev + 1)
         setClicks(prev => prev + 1);
-        element.currentTarget.style.transform = 'rotateY(180deg)';
+        element.currentTarget.className = 'flip-container flipped';
         element.currentTarget.style.pointerEvents = 'none';
 
 
@@ -98,17 +98,17 @@ export default function Home() {
 
         } else if (clicks === 1) {
             if (src === prevElm[1]) {
-                element.currentTarget.className = 'flip-container flipped'
-                prevElm[0].target.className = 'flip-container flipped'
+                element.currentTarget.className = 'flip-container flipped';
+                prevElm[0].target.className = 'flip-container flipped';
                 setClicks(0);
 
             }
             else {
                 setTimeout(() => {
-                    element.target.style.transform = 'rotateY(0deg)'
+                    element.target.className = 'flip-container';
                     element.target.style.pointerEvents = 'auto'
 
-                    prevElm[0].target.style.transform = 'rotateY(0deg)'
+                    prevElm[0].target.className = 'flip-container';
                     prevElm[0].target.style.pointerEvents = 'auto'
                 }, 1000);
                 setClicks(0);
@@ -127,10 +127,9 @@ export default function Home() {
         });
         setTimeout(() => {
             gItems.forEach((item) => {
-                if (item.classList.contains('flipped')) {
-                    return;
+                if (!item.classList.contains('flipped')) {
+                    item.style.transform = 'rotateY(0deg)'
                 }
-                item.style.transform = 'rotateY(0deg)'
             });
         }, 1600);
     }
